@@ -41,13 +41,12 @@ public class GornerTableCellRenderer implements TableCellRenderer {
 		panel.setLayout(new FlowLayout(FlowLayout.LEFT));
 	}
  
-	public Component getTableCellRendererComponent(JTable table, Object value, boolean isSelected, boolean hasFocus,
-			int row, int col) {
+	public Component getTableCellRendererComponent(JTable table, Object value, boolean isSelected, boolean hasFocus, int row, int col) {
 		// Преобразовать double в строку с помощью форматировщика
 		String formattedDouble = formatter.format(value);
 		// Установить текст надписи равным строковому представлению числа
 		label.setText(formattedDouble);
-		if (col == 1 && needle != null && needle.equals(formattedDouble)) {
+		if ((col == 1 || col == 0) && needle != null && needle.equals(formattedDouble)) {
 			// Номер столбца = 1 (т.е. второй столбец) + иголка не null
 			// (значит что-то ищем) +
 			// значение иголки совпадает со значением ячейки таблицы -

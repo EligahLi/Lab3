@@ -48,6 +48,7 @@ public class MainFrame extends JFrame {
 	private JMenuItem saveToTextMenuItem;
 	private JMenuItem saveToGraphicsMenuItem;
 	private JMenuItem searchValueMenuItem;
+	private JMenuItem searchXMenuItem;
 	private JMenuItem aboutMenuItem;
 
 	// Поля ввода для считывания значений переменных
@@ -141,8 +142,19 @@ public class MainFrame extends JFrame {
 		Action searchValueAction = new AbstractAction("Найти значение многочлена") {
 			public void actionPerformed(ActionEvent event) {
 				// Запросить пользователя ввести искомую строку
-				String value = JOptionPane.showInputDialog(MainFrame.this, "Введите значение для поиска",
-						"Поиск значения", JOptionPane.QUESTION_MESSAGE);
+				String value = JOptionPane.showInputDialog(MainFrame.this, "Введите значение для поиска", "Поиск значения", JOptionPane.QUESTION_MESSAGE);
+				// Установить введенное значение в качестве иголки
+				renderer.setNeedle(value);
+				// Обновить таблицу
+				getContentPane().repaint();
+			}
+		};		
+		
+		// Создать новое действие по поиску значений X
+		Action searchXAction = new AbstractAction("Найти значение X") {
+			public void actionPerformed(ActionEvent event) {
+				// Запросить пользователя ввести искомую строку
+				String value = JOptionPane.showInputDialog(MainFrame.this, "Введите значение для поиска", "Поиск значения", JOptionPane.QUESTION_MESSAGE);
 				// Установить введенное значение в качестве иголки
 				renderer.setNeedle(value);
 				// Обновить таблицу
@@ -163,6 +175,12 @@ public class MainFrame extends JFrame {
 		// По умолчанию пункт меню является недоступным (данных ещѐ нет)
 
 		searchValueMenuItem.setEnabled(false);
+		
+		// Добавить действие в меню "Таблица"
+		searchXMenuItem = tableMenu.add(searchXAction);
+		// По умолчанию пункт меню является недоступным (данных ещѐ нет)
+
+		searchXMenuItem.setEnabled(false);
 		
 		//добавить действие в меню "Справка"
 		aboutMenuItem = helpMenu.add(aboutAction);
@@ -283,6 +301,7 @@ public class MainFrame extends JFrame {
 					saveToTextMenuItem.setEnabled(true);
 					saveToGraphicsMenuItem.setEnabled(true);
 					searchValueMenuItem.setEnabled(true);
+					searchXMenuItem.setEnabled(true);
 				} catch (NumberFormatException ex) {
 					// В случае ошибки преобразования чисел показать сообщение об ошибке
 					JOptionPane.showMessageDialog(MainFrame.this, "Ошибка в формате записи числа с плавающей точкой",
@@ -308,6 +327,7 @@ public class MainFrame extends JFrame {
 				saveToTextMenuItem.setEnabled(false);
 				saveToGraphicsMenuItem.setEnabled(false);
 				searchValueMenuItem.setEnabled(false);
+				searchXMenuItem.setEnabled(false);
 				// Обновить область содержания главного окна
 				getContentPane().validate();
 			}
